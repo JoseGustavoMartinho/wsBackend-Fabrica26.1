@@ -11,5 +11,7 @@ urlpatterns = [
     path('filmes/criar/', views.criar_filme, name='criar_filme'),
     path('filmes/<int:pk>/editar/', views.editar_filme, name='editar_filme'),
     path('filmes/<int:pk>/deletar/', views.deletar_filme, name='deletar_filme'),
+    path('filmes/buscar-api/', views.buscar_filme_api, name='buscar_filme_api'),
+
       
 ]
