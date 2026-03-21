@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Categoria, Filme
 from .forms import CategoriaForm, FilmeForm
@@ -80,5 +81,36 @@ def deletar_filme(request, pk):
     return render(request, 'filmes/filmes/confirmar_delete.html', {'filme': filme})
 
 
+def buscar_filme_api(request):
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        categoria_id = request.POST.get('categoria')
 
+        url = f'http://www.omdbapi.com/?t={titulo}&apikey=SUA_CHAVE_AQUI'
+        response = requests.get(url)
+        data = response.json()
+
+        if data.get('Response') == 'True':
+            categoria = Categoria.objects.get(id=categoria_id)
+
+            Filme.objects.create(
+                titulo=data.get('Title', ''),
+                descricao=data.get('Plot', ''),
+                ano=data.get('Year', ''),
+                genero=data.get('Genre', ''),
+                diretor=data.get('Director', ''),
+                poster=data.get('Poster', ''),
+                categoria=categoria
+            )
+
+            return redirect('listar_filmes')
+
+        categorias = Categoria.objects.all()
+        return render(request, 'filmes/filmes/buscar_api.html', {
+            'categorias': categorias,
+            'erro': 'Filme não encontrado na API.'
+        })
+
+    categorias = Categoria.objects.all()
+    return render(request, 'filmes/filmes/buscar_api.html', {'categorias': categorias})
 # Create your views here.
