@@ -1,8 +1,6 @@
 from django.contrib import admin
-from .models import Filme, Categoria
+from .models import Categoria, Filme
 
-admin.site.register(Filme)
+# Registra os models no painel administrativo
 admin.site.register(Categoria)
-
-
-# Register your models here.
+admin.site.register(Filme)
