@@ -12,14 +12,30 @@
 
     <ul>
         {% for filme in filmes %}
-            <li>
-                {{ filme.titulo }} - {{ filme.categoria.nome }}
-                <a href="{% url 'editar_filme' filme.id %}">Editar</a>
-                <a href="{% url 'deletar_filme' filme.id %}">Deletar</a>
-            </li>
-        {% empty %}
-            <li>Nenhum filme cadastrado.</li>
-        {% endfor %}
+    <li>
+        {{ filme.titulo }} - {{ filme.categoria.nome }}
+        <br>
+        {% if filme.poster %}
+            <img src="{{ filme.poster }}" width="100">
+        {% endif %}
+        <br>
+        <a href="{% url 'editar_filme' filme.id %}">Editar</a>
+        <a href="{% url 'deletar_filme' filme.id %}">Deletar</a>
+    </li>
+    {% endfor %}
     </ul>
+
+    <style>
+    body {
+    font-family: Arial;
+    margin: 20px;
+    }
+    h1 {
+    color: #333;
+    }
+    a {
+    margin-right: 10px;
+    }
+</style>
 </body>
 </html>
