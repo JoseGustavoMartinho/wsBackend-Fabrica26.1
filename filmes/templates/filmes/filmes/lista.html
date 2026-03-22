@@ -8,7 +8,8 @@
     <h1>Lista de Filmes</h1>
 
     <a href="{% url 'criar_filme' %}">Cadastrar Manual</a>
-    <a href="{% url 'buscar_filme_api' %}">Buscar Filme na API</a>
+<a href="{% url 'buscar_filme_api' %}">Buscar Filme na API</a>
+<a href="{% url 'listar_categorias' %}">Categorias</a>
 
     <ul>
         {% for filme in filmes %}

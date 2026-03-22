@@ -1,11 +1,13 @@
-import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Categoria, Filme
 from .forms import CategoriaForm, FilmeForm
+import requests
+
 
 def listar_categorias(request):
     categorias = Categoria.objects.all()
     return render(request, 'filmes/categorias/lista.html', {'categorias': categorias})
+
 
 def criar_categoria(request):
     if request.method == 'POST':
@@ -15,12 +17,13 @@ def criar_categoria(request):
             return redirect('listar_categorias')
     else:
         form = CategoriaForm()
-        
+
     return render(request, 'filmes/categorias/form.html', {'form': form})
+
 
 def editar_categoria(request, pk):
     categoria = get_object_or_404(Categoria, pk=pk)
-    
+
     if request.method == 'POST':
         form = CategoriaForm(request.POST, instance=categoria)
         if form.is_valid():
@@ -28,12 +31,13 @@ def editar_categoria(request, pk):
             return redirect('listar_categorias')
     else:
         form = CategoriaForm(instance=categoria)
-    
+
     return render(request, 'filmes/categorias/form.html', {'form': form})
+
 
 def deletar_categoria(request, pk):
     categoria = get_object_or_404(Categoria, pk=pk)
-    
+
     if request.method == 'POST':
         categoria.delete()
         return redirect('listar_categorias')
@@ -88,24 +92,22 @@ def buscar_filme_api(request):
         titulo = request.POST.get('titulo', '').strip()
         categoria_id = request.POST.get('categoria')
 
-        url = f'http://www.omdbapi.com/?s={titulo}&apikey=69a9ee74'
+        url = f'https://www.omdbapi.com/?t={titulo}&apikey=69a9ee74'
         response = requests.get(url)
         data = response.json()
 
-        print(data)
-
         if data.get('Response') == 'True':
-            filme_api = data['Search'][0]
-
             categoria = Categoria.objects.get(id=categoria_id)
 
             Filme.objects.create(
-                titulo=filme_api.get('Title', ''),
-                ano=filme_api.get('Year', ''),
-                descricao='Descrição não disponível',
+                titulo=data.get('Title', ''),
+                ano=data.get('Year', ''),
+                descricao=data.get('Plot', 'Descrição não disponível'),
+                genero=data.get('Genre', ''),
+                diretor=data.get('Director', ''),
+                poster=data.get('Poster', ''),
                 categoria=categoria
             )
-
             return redirect('listar_filmes')
 
         return render(request, 'filmes/filmes/buscar_api.html', {

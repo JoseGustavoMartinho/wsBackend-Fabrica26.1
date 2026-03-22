@@ -16,9 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
+
+# Função que define o que acontece quando acessa "/"
+def home(request):
+    # Redireciona direto para a lista de filmes
+    return redirect('listar_filmes')
 
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('', include('filmes.urls')),
-    
 ]

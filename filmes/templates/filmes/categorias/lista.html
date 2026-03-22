@@ -15,6 +15,7 @@
                 {{ categoria.nome }}
                 <a href="{% url 'editar_categoria' categoria.id %}">Editar</a>
                 <a href="{% url 'deletar_categoria' categoria.id %}">Deletar</a>
+                <a href="{% url 'listar_filmes' %}">Voltar para Filmes</a>
             </li>
         {% empty %}
             <li>Nenhuma categoria cadastrada.</li>
