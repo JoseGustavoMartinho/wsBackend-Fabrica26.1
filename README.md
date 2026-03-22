@@ -18,39 +18,38 @@ Sistema web desenvolvido com Django para gerenciamento de filmes e categorias, c
 - HTML
 - CSS
 - Requests
-- SQLite (para desenvolvimento local)
-
-## Estrutura principal
-
-- `Filme`: entidade principal do sistema
-- `Categoria`: classificação dos filmes
-- `OMDb API`: busca de informações externas
-
-## Banco de dados
-
-O projeto utiliza SQLite para facilitar a execução local.
-
-As informações cadastradas manualmente ou vindas da API são persistidas no banco, incluindo:
-
-- título
-- descrição
-- ano
-- gênero
-- diretor
-- poster
-- categoria relacionada
+- SQLite (execução local)
 
 ## Rotas principais
 
 ### Web
-- `/filmes/`
-- `/filmes/criar/`
-- `/filmes/buscar-api/`
-- `/categorias/`
+- /filmes/
+- /filmes/criar/
+- /filmes/buscar-api/
+- /categorias/
 
 ## Como executar o projeto
 
-### 1. Clonar o repositório
-```bash
-git clone https://github.com/JoseGustavoMartinho/wsBackend-Fabrica26.1.git
-cd wsBackend-Fabrica26.1
+1. Instale as dependências:
+
+pip install -r requirements.txt
+
+
+2. Execute as migrations:
+
+python manage.py migrate
+
+
+3. Inicie o servidor:
+
+python manage.py runserver
+
+
+4. Acesse no navegador:
+
+http://127.0.0.1:8000/filmes/
+
+
+## Autor
+
+José Gustavo Martinho
