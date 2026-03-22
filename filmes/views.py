@@ -82,35 +82,36 @@ def deletar_filme(request, pk):
 
 
 def buscar_filme_api(request):
+    categorias = Categoria.objects.all()
+
     if request.method == 'POST':
-        titulo = request.POST.get('titulo')
+        titulo = request.POST.get('titulo', '').strip()
         categoria_id = request.POST.get('categoria')
 
-        url = f'http://www.omdbapi.com/?t={titulo}&apikey=SUA_CHAVE_AQUI'
+        url = f'http://www.omdbapi.com/?s={titulo}&apikey=69a9ee74'
         response = requests.get(url)
         data = response.json()
 
+        print(data)
+
         if data.get('Response') == 'True':
+            filme_api = data['Search'][0]
+
             categoria = Categoria.objects.get(id=categoria_id)
 
             Filme.objects.create(
-                titulo=data.get('Title', ''),
-                descricao=data.get('Plot', ''),
-                ano=data.get('Year', ''),
-                genero=data.get('Genre', ''),
-                diretor=data.get('Director', ''),
-                poster=data.get('Poster', ''),
+                titulo=filme_api.get('Title', ''),
+                ano=filme_api.get('Year', ''),
+                descricao='Descrição não disponível',
                 categoria=categoria
             )
 
             return redirect('listar_filmes')
 
-        categorias = Categoria.objects.all()
         return render(request, 'filmes/filmes/buscar_api.html', {
             'categorias': categorias,
-            'erro': 'Filme não encontrado na API.'
+            'erro': 'Filme não encontrado na API'
         })
 
-    categorias = Categoria.objects.all()
     return render(request, 'filmes/filmes/buscar_api.html', {'categorias': categorias})
 # Create your views here.
