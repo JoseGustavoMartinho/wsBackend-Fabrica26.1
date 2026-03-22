@@ -1,9 +1,6 @@
 from django.db import models
 
-# ==============================
-# Model de Categoria
-# ==============================
-# Representa os tipos de filmes (Ação, Comédia, etc)
+# Categoria do filme
 class Categoria(models.Model):
     # Nome da categoria
     nome = models.CharField(max_length=100)
@@ -13,10 +10,7 @@ class Categoria(models.Model):
         return self.nome
 
 
-# ==============================
-# Model de Filme
-# ==============================
-# Representa um filme cadastrado no sistema
+# Filme
 class Filme(models.Model):
     # Título do filme
     titulo = models.CharField(max_length=200)

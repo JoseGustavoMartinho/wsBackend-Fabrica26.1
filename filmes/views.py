@@ -81,7 +81,6 @@ def buscar_filme_api(request):
                 poster=data.get('Poster'),
                 categoria=categoria
             )
-
             return redirect('listar_filmes')
 
     return render(request, 'filmes/buscar_api.html', {'categorias': categorias})
