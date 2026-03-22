@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8
+    container_name: mysql_filmes
+    restart: always
+    environment:
+      MYSQL_DATABASE: filmesdb
+      MYSQL_USER: filmesuser
+      MYSQL_PASSWORD: filmespass
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3306:3306"
+
+  web:
+    build: .
+    container_name: django_filmes
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

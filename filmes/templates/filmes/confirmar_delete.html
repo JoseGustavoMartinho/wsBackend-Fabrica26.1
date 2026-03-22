@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Categoria</title>
+    <title>Excluir Filme</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'filmes/style.css' %}">
 </head>
 <body>
     <div class="container">
-        <h1>Formulário de Categoria</h1>
+        <h1>Excluir Filme</h1>
+
+        <p>Tem certeza que deseja excluir o filme <strong>"{{ filme.titulo }}"</strong>?</p>
 
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Salvar</button>
+            <button type="submit">Sim, excluir</button>
         </form>
 
         <div class="acoes">
-            <a href="{% url 'listar_categorias' %}">Voltar para Categorias</a>
+            <a href="{% url 'listar_filmes' %}">Cancelar</a>
         </div>
     </div>
 </body>

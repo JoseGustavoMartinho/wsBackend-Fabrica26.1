@@ -1,60 +1,56 @@
 # wsBackend-Fabrica26.1
 
-Projeto desenvolvido em Django para o desafio da Fábrica de Software.
-
-O sistema permite cadastrar, editar, listar e remover categorias e filmes.  
-Além disso, também consome uma API externa gratuita (OMDb API) para buscar informações de filmes e salvar no banco de dados.
-
----
+Sistema web desenvolvido com Django para gerenciamento de filmes e categorias, com cadastro manual e integração com a API OMDb.
 
 ## Funcionalidades
 
-- CRUD completo de Categorias
-- CRUD completo de Filmes
-- Relacionamento entre Filme e Categoria
-- Busca de filmes por API externa
-- Salvamento das informações no banco de dados
+- CRUD completo de filmes
+- CRUD completo de categorias
+- Relacionamento entre filme e categoria
+- Busca de filmes pela API OMDb
 - Interface web com Django Templates
-
----
+- Estilização com CSS próprio
 
 ## Tecnologias utilizadas
 
-- Python
-- Django
-- SQLite
+- Python 3.11
+- Django 5.2
 - HTML
+- CSS
 - Requests
+- SQLite (para desenvolvimento local)
 
----
+## Estrutura principal
 
-## Estrutura do projeto
-
-- `Categoria`: entidade responsável por classificar os filmes
-- `Filme`: entidade principal do sistema, ligada a uma categoria
-- API externa: OMDb API
-
----
+- `Filme`: entidade principal do sistema
+- `Categoria`: classificação dos filmes
+- `OMDb API`: busca de informações externas
 
 ## Banco de dados
 
-O projeto utiliza **SQLite** como banco de dados padrão do Django.
+O projeto utiliza SQLite para facilitar a execução local.
 
-As informações cadastradas manualmente ou vindas da API são armazenadas no arquivo local do banco.
+As informações cadastradas manualmente ou vindas da API são persistidas no banco, incluindo:
 
-Exemplos de dados salvos:
-- nome da categoria
-- título do filme
+- título
 - descrição
 - ano
+- gênero
+- diretor
+- poster
 - categoria relacionada
 
----
+## Rotas principais
+
+### Web
+- `/filmes/`
+- `/filmes/criar/`
+- `/filmes/buscar-api/`
+- `/categorias/`
 
 ## Como executar o projeto
 
 ### 1. Clonar o repositório
-
 ```bash
-git clone https://github.com/SEU-USUARIO/wsBackend-Fabrica26.1.git
+git clone https://github.com/JoseGustavoMartinho/wsBackend-Fabrica26.1.git
 cd wsBackend-Fabrica26.1
